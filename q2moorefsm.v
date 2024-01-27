@@ -52,7 +52,6 @@ always@(posedge clk or negedge rst) begin
          end
          A6:begin
           dout=1;
-         
           if(din==0) ps=A1;
           else ps=A7;
          end
