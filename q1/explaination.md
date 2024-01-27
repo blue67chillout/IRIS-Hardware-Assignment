@@ -8,3 +8,4 @@ Control signals are:
   01:ROR#1
   10:ROR#2
   11:ROR#3
+link:https://circuitverse.org/users/219209/projects/ror-44d2e1f6-c978-4023-8fcf-0f08a6ad2960
