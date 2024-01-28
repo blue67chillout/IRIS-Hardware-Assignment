@@ -1,0 +1,68 @@
+module sqdet(input din, clk, rst,
+                output reg dout);
+
+reg [2:0]ps,ns;
+parameter  R= 3'b000,A0 = 3'b001,A1 = 3'b010,A2 = 3'b011,A3 = 3'b100,A4 = 3'b101,A5 =3'b110;
+
+ 
+always@(posedge clk or negedge rst) begin
+
+    if(!rst)begin
+        ps<=R;ns<=R;
+        dout=0;end
+     else
+        ps<=ns;
+   end
+  always@(ps,din)begin
+    case(ps)
+        R:begin
+         if  (din==0) ns=A1; 
+          else ns=A0;
+         end
+        A0:begin
+         
+          if(din==0) ns=A4;
+          else ns=A0;
+         end
+        A1:begin
+         
+          if(din==0) ns=A1;
+          else ns=A2;
+         end 
+        A2:begin
+         
+          if(din==0) ns=A3;
+          else ns=A0;
+         end 
+        A3:begin
+         
+          if(din==0) ns=A5;
+          else ns=A2;
+         end 
+        A4:begin
+        
+          if(din==0) ns=A5;
+          else ns=A2;
+         end 
+        A5:begin
+         
+          if(din==0) ns=A1;
+          else ns=A2;
+         end
+         default:begin dout =0 ; end     
+    endcase
+
+end
+always@(ps,din)begin
+    case(ps)
+        A3:if(din==0) dout=1;else dout=0;
+        A5:if(din==1) dout=1;else dout =0;
+        R,A0,A1,A2,A4:dout=0;
+        default:dout=0;
+    endcase
+
+end
+
+
+
+endmodule
