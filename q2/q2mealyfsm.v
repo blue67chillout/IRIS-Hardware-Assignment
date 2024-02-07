@@ -7,13 +7,13 @@ parameter  R= 3'b000,A0 = 3'b001,A1 = 3'b010,A2 = 3'b011,A3 = 3'b100,A4 = 3'b101
  
 always@(posedge clk or negedge rst) begin
 
-    if(!rst)begin
-        ps<=R;ns<=R;
-        dout=0;end
+    if(!rst)
+        ps<=R;
+       
      else
         ps<=ns;
-   end
-  always@(ps,din)begin
+   
+  always@(*)begin
     case(ps)
         R:begin
          if  (din==0) ns=A1; 
@@ -49,11 +49,11 @@ always@(posedge clk or negedge rst) begin
           if(din==0) ns=A1;
           else ns=A2;
          end
-         default:begin dout =0 ; end     
+         default:begin ns=R; end     
     endcase
 
 end
-always@(ps,din)begin
+  always@(*)begin
     case(ps)
         A3:if(din==0) dout=1;else dout=0;
         A5:if(din==1) dout=1;else dout =0;
