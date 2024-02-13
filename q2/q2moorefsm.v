@@ -8,15 +8,13 @@ parameter  R= 4'b0000,A0 = 4'b0001,A1 = 4'b0010,A2 = 4'b0011,A3 = 4'b0100,A4 = 4
 always@ (posedge clk or negedge rst) begin
 
     if(!rst)
-
-        ps<=R;
-
-  else
-			ps<=ns;
+	    ps<=R;
+    else
+	ps<=ns;
 	end
 always@(ps or din)
-begin
-    case(ps)
+ begin
+     case(ps)
         R:begin
 
           if(din==0) ns=A1;
@@ -65,7 +63,7 @@ begin
          end
         default:ns=R;
     endcase
-end
+ end
 always@(ps,din)begin
 
 	case(ps)
@@ -73,5 +71,5 @@ always@(ps,din)begin
 		A7:dout=1;
 		default:dout=0;
 	endcase
-end
+ end
 endmodule
