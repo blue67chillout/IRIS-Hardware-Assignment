@@ -9,11 +9,10 @@ always@(posedge clk or negedge rst) begin
 
     if(!rst)
         ps<=R;
-       
-     else
+    else
         ps<=ns;
    
-  always@(*)begin
+  always@(ps,din)begin
     case(ps)
         R:begin
          if  (din==0) ns=A1; 
@@ -57,7 +56,6 @@ end
     case(ps)
         A3:if(din==0) dout=1;else dout=0;
         A5:if(din==1) dout=1;else dout =0;
-        R,A0,A1,A2,A4:dout=0;
         default:dout=0;
     endcase
 
