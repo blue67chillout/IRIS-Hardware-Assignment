@@ -1,68 +1,77 @@
-`timescale 1ns / 1ps
-
 module sqdet(input din, clk, rst,
                 output reg dout);
 
 reg [3:0]ps,ns;
 parameter  R= 4'b0000,A0 = 4'b0001,A1 = 4'b0010,A2 = 4'b0011,A3 = 4'b0100,A4 = 4'b0101,A5 =4'b0110,A6=4'b0111,A7=4'b1000;
 
- 
-always@(posedge clk or negedge rst) begin
 
-    if(!rst)begin
+always@ (posedge clk or negedge rst) begin
+
+    if(!rst)
+
         ps<=R;
-        dout=0;end
-     else
-   
+
+  else
+			ps<=ns;
+	end
+always@(ps or din)
+begin
     case(ps)
         R:begin
-         dout=0;
-          if(din==0) ps=A1;
-          else ps=A0;
+
+          if(din==0) ns=A1;
+          else ns=A0;
          end
         A0:begin
-         dout=0;
-          if(din==0) ps=A4;
-          else ps=A0;
+
+          if(din==0) ns=A4;
+          else ns=A0;
          end
         A1:begin
-         dout=0;
-          if(din==0) ps=A1;
-          else ps=A2;
-         end 
+
+          if(din==0) ns=A1;
+          else ns=A2;
+         end
         A2:begin
-         dout=0;
-          if(din==0) ps=A3;
-          else ps=A0;
-         end 
+
+          if(din==0) ns=A3;
+          else ns=A0;
+         end
         A3:begin
-         dout=0;
-          if(din==0) ps=A6;
-          else ps=A2;
-         end 
+
+          if(din==0) ns=A6;
+          else ns=A2;
+         end
         A4:begin
-         dout=0;
-          if(din==0) ps=A5;
-          else ps=A2;
-         end 
+
+          if(din==0) ns=A5;
+          else ns=A2;
+         end
         A5:begin
-         dout=0;
-          if(din==0) ps=A1;
-          else ps=A7;
+
+          if(din==0) ns=A1;
+          else ns=A7;
          end
          A6:begin
-          dout=1;
-         
-          if(din==0) ps=A1;
-          else ps=A7;
+
+
+          if(din==0) ns=A1;
+          else ns=A7;
          end
          A7:begin
-         dout=1;
-          if(din==0) ps=A3;
-          else ps=A0;
-         end
-        default:begin dout =0 ;ns= R; end     
-    endcase
 
+          if(din==0) ns=A3;
+          else ns=A0;
+         end
+        default:ns=R;
+    endcase
+end
+always@(ps,din)begin
+
+	case(ps)
+		A6:dout=1;
+		A7:dout=1;
+		default:dout=0;
+	endcase
 end
 endmodule
