@@ -53,7 +53,7 @@ always@(posedge clk or negedge rst) begin
 
 end
   always@(*)begin
-    case(ps)
+    case(ps,din)
         A3:if(din==0) dout=1;else dout=0;
         A5:if(din==1) dout=1;else dout =0;
         default:dout=0;
