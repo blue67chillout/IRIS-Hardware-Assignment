@@ -11,7 +11,7 @@ always@(posedge clk or negedge rst) begin
         ps<=R;
     else
         ps<=ns;
-   
+end
   always@(ps,din)begin
     case(ps)
         R:begin
@@ -52,8 +52,8 @@ always@(posedge clk or negedge rst) begin
     endcase
 
 end
-  always@(*)begin
-    case(ps,din)
+  always@(ps,din)begin
+    case(ps)
         A3:if(din==0) dout=1;else dout=0;
         A5:if(din==1) dout=1;else dout =0;
         default:dout=0;
